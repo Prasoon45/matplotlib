@@ -1011,16 +1011,16 @@ class CheckButtons(AxesWidget):
 
         axcolor = ax.get_facecolor()
 
-        self.labels = []
-        self.lines = []
-        self.rectangles = []
+        self.labels, self.lines, self.rectangles = [], []. []
 
         lineparams = {'color': 'k', 'linewidth': 1.25,
                       'transform': ax.transAxes, 'solid_capstyle': 'butt'}
-        for y, label, active in zip(ys, labels, actives):
-            t = ax.text(0.25, y, label, transform=ax.transAxes,
-                        horizontalalignment='left',
-                        verticalalignment='center')
+        
+        self.labels = [
+            ax.text(0.25, y, label, transform=ax.transAxes,
+                    horizontalalignment="left", verticalalignment="center")
+            for y, label, active in zip(ys, labels, actives)]
+        
 
             w, h = dy / 2, dy / 2
             x, y = 0.05, y - h / 2
@@ -1033,7 +1033,6 @@ class CheckButtons(AxesWidget):
 
             l1.set_visible(active)
             l2.set_visible(active)
-            self.labels.append(t)
             self.rectangles.append(p)
             self.lines.append((l1, l2))
             ax.add_patch(p)
